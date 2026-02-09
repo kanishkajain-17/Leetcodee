@@ -11,6 +11,7 @@
  */
 class Solution {
 public:
+    //by iteratively
     vector<int> preorderTraversal(TreeNode* root) {
         //root left right
         if(!root)
@@ -23,10 +24,12 @@ public:
             TreeNode* rootValue = st.top();
             st.pop();
 
+            ans.push_back(rootValue->val);
+
             if(rootValue->right != NULL){
                 st.push(rootValue->right);
             }
-            ans.push_back(rootValue->val);
+            
             if(rootValue->left != NULL){
                 st.push(rootValue->left);
             }
