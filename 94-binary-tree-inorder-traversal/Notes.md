@@ -1,1 +1,1 @@
-<h2>binary-tree-inorder-traversal Notes</h2><hr>[ Time taken: 3 m 6 s ]
+<h2>binary-tree-inorder-traversal Notes</h2><hr>[ Time taken: 1 hr 20 m 23 s ]
