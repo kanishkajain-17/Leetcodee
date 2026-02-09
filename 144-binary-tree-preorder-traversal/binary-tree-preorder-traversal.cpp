@@ -27,10 +27,10 @@ public:
             ans.push_back(rootValue->val);
 
             if(rootValue->right != NULL){
-                st.push(rootValue->right);
+                st.push(rootValue->right);//bcz last mai chaiye right wale le value aur stack use kar rahe hai toh phle he daal diya 
             }
             
-            if(rootValue->left != NULL){
+            if(rootValue->left != NULL){//baad mai isko push kar rahe hai taaki phle yeh print ho jab pop ho
                 st.push(rootValue->left);
             }
         }
