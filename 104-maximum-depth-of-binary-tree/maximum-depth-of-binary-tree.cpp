@@ -11,18 +11,12 @@
  */
 class Solution {
 public:
-    int count(TreeNode* root){
-        if(!root)
-            return 0;
-        int leftH = count(root->left);
-        int rightH = count(root->right);
-
-        return max(leftH, rightH) + 1;
-
-    }
     int maxDepth(TreeNode* root) {
         if(!root)
-            return NULL;
-        return count(root);
+            return 0;
+        int leftH = maxDepth(root->left);
+        int rightH = maxDepth(root->right);
+
+        return max(leftH, rightH) + 1;
     }
 };
