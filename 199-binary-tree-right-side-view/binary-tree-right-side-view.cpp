@@ -12,31 +12,57 @@
 class Solution {
 public:
     vector<int> rightSideView(TreeNode* root) {
+        // if(!root)
+        //     return {};
+        // vector<int>ans;
+        // queue<pair<TreeNode*,pair<int, int>>>q; //node, level
+        // q.push({root, {0, 0}});
+        // map<int, int>mp; //vertical axis coordinate, node value
+        
+        // while(!q.empty()){
+        //     auto it = q.front();
+        //     q.pop();
+            
+        //     TreeNode* node = it.first;
+        //     int vertical = it.second.first;
+        //     int level = it.second.second;
+            
+        //     if(mp.find(level) == mp.end())
+        //         mp[level] = node->val;
+                      
+        //     if(node->right != NULL)
+        //         q.push({node->right, {vertical + 1, level + 1}});
+        //     if(node->left != NULL)
+        //         q.push({node->left, {vertical - 1, level + 1}});
+        // }
+        // for(auto it : mp)
+        //     ans.push_back(it.second);
+        // return ans;
+
+
+
         if(!root)
             return {};
         vector<int>ans;
-        queue<pair<TreeNode*,pair<int, int>>>q; //node, level
-        q.push({root, {0, 0}});
-        map<int, int>mp; //vertical axis coordinate, node value
+        queue<TreeNode*>que;
         
-        while(!q.empty()){
-            auto it = q.front();
-            q.pop();
+        que.push(root);
+        while(!que.empty()){
+            TreeNode * node = NULL;
+            int N = que.size();
             
-            TreeNode* node = it.first;
-            int vertical = it.second.first;
-            int level = it.second.second;
-            
-            if(mp.find(level) == mp.end())
-                mp[level] = node->val;
-                      
-            if(node->right != NULL)
-                q.push({node->right, {vertical + 1, level + 1}});
-            if(node->left != NULL)
-                q.push({node->left, {vertical - 1, level + 1}});
+            while(N--){
+                node = que.front();
+                que.pop();
+                
+                        if(node->left != NULL)
+                    que.push(node->left);
+
+                    if(node->right != NULL)
+                    que.push(node->right);
+            }
+            ans.push_back(node->val);
         }
-        for(auto it : mp)
-            ans.push_back(it.second);
         return ans;
     }
 };
