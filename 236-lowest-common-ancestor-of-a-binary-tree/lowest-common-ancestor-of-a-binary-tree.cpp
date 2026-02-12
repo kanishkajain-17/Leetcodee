@@ -11,17 +11,16 @@ class Solution {
 public:
     //popular question
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        if(!root)
-            return NULL;
-        if(root == p || root == q)
-            return root; //ek bhi equal hai toh dono mai common vahi hai
+        if(!root || root == p || root == q)
+            return root;
+        //ek bhi equal hai toh dono mai common vahi hai
+
         TreeNode* left = lowestCommonAncestor(root->left, p, q);
         TreeNode* right = lowestCommonAncestor(root->right, p, q);
 
         if(left != NULL && right != NULL)
             return root;
-        if(left != NULL)
-            return left;
-        return right;
+
+        return (left) ? left : right;
     }
 };
