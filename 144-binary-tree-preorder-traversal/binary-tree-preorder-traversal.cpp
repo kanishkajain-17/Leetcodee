@@ -11,27 +11,34 @@
  */
 class Solution {
 public:
-    //by iteratively
     vector<int> preorderTraversal(TreeNode* root) {
         //root left right
         if(!root)
             return {};
         vector<int>ans;
-        stack<TreeNode*>st;
+        TreeNode* cur = root;
 
-        st.push(root);
-        while(!st.empty()){
-            TreeNode* rootValue = st.top();
-            st.pop();
-
-            ans.push_back(rootValue->val);
-
-            if(rootValue->right != NULL){
-                st.push(rootValue->right);//bcz last mai chaiye right wale le value aur stack use kar rahe hai toh phle he daal diya 
+        while(cur != NULL){
+           
+            if(cur->left == NULL){
+                ans.push_back(cur->val);
+                cur = cur->right;
             }
-            
-            if(rootValue->left != NULL){//baad mai isko push kar rahe hai taaki phle yeh print ho jab pop ho
-                st.push(rootValue->left);
+            else{
+                
+                TreeNode* leftChild = cur->left;
+                while(leftChild->right != NULL && leftChild->right != cur)
+                    leftChild = leftChild->right;
+
+                if(leftChild->right == NULL){
+                    ans.push_back(cur->val);
+                    leftChild->right = cur;
+                    cur = cur->left;
+                }
+                else{
+                    leftChild->right = NULL;
+                    cur = cur->right;
+                }
             }
         }
         return ans;
