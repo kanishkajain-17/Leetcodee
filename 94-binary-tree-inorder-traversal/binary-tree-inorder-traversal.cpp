@@ -16,21 +16,29 @@ public:
             return {};
         vector<int>ans;
         TreeNode* cur = root;
+
         while(cur != NULL){
+           
             if(cur->left == NULL){
                 ans.push_back(cur->val);
                 cur = cur->right;
             }
-             else{
+            else{
+                
                 TreeNode* leftChild = cur->left;
-                while(leftChild->right != NULL)
+                while(leftChild->right != NULL && leftChild->right != cur)
                     leftChild = leftChild->right;
-                leftChild->right = cur;
 
-                TreeNode* temp = cur;
-                cur = cur->left;
-                temp->left = NULL;
-             }   
+                if(leftChild->right == NULL){
+                    leftChild->right = cur;
+                    cur = cur->left;
+                }
+                else{
+                    leftChild->right = NULL;
+                    ans.push_back(cur->val);
+                    cur = cur->right;
+                }
+            }
         }
         return ans;
     }
