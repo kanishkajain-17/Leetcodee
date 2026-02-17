@@ -19,8 +19,8 @@ public:
             int node = pq.top().second;
             pq.pop();
 
-            if(d > ans[node])
-                continue;
+            if(node == n - 1)
+                return ans[n - 1];
             for(auto & vec : adj[node]){
                 int adjNode = vec.first;
                 int wt = vec.second;
@@ -30,8 +30,6 @@ public:
                 }
             }
         }
-        if(ans[n - 1] == INT_MAX)
             return -1;
-        return ans[n - 1];
     }
 };
