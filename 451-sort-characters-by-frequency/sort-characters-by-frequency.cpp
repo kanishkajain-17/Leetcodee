@@ -14,10 +14,8 @@ public:
         while(!pq.empty()){
             auto it = pq.top();
             pq.pop();
-            int i = it.first;
-            while(i != 0){
+            while(it.first--){
                 ans += it.second;
-                i--;
             }
             
         }
