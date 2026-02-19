@@ -1,28 +1,21 @@
 class Solution {
 public:
     bool isIsomorphic(string s, string t) {
-        if(s.size() != t.size())
+        unordered_map<char, char> mp1;
+        unordered_map<char, char> mp2;
+
+        for(int i= 0; i < s.size(); i++){
+
+            char ch1 = s[i];
+            char ch2 = t[i];
+
+            if(mp1.find(ch1) != mp1.end() && mp1[ch1] != ch2 ||
+                mp2.find(ch2) != mp2.end() && mp2[ch2] != ch1
+            )
             return false;
-        int n = t.size();
-        unordered_map<char, char>mp;
-        set<char>st;
-        for(int i = 0; i < n; i++){
-            
-            
-                
-             if(mp.find(t[i]) != mp.end()){
-                char temp = mp[t[i]];
-                cout<<temp;
-                if(temp != s[i])
-                    return false;
-            }
-            else if(st.find(s[i]) != st.end())
-                return false;
-            else{
-                 mp[t[i]] = s[i];
-                 st.insert(s[i]);
-            }
-               
+
+            mp1[ch1] = ch2;
+            mp2[ch2] = ch1;
         }
         return true;
     }
