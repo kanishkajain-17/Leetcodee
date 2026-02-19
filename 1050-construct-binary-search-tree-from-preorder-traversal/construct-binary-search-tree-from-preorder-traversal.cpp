@@ -11,30 +11,17 @@
  */
 class Solution {
 public:
-     TreeNode* solve(vector<int>& preorder, vector<int>& inorder, int start, int end, int & idx){
-        if(start > end)
+    TreeNode* build(vector<int>& preorder, int & i, int bound){
+        if(i == preorder.size() ||preorder[i] > bound)
             return NULL;
-        int rootVal = preorder[idx];
-        int i;
-        for(i = start; i <= end; i++){
-            if(inorder[i] == rootVal)
-                break;
-        }
-        idx++; //preorder mai ek value aage badh gaye
-        TreeNode* root = new TreeNode(rootVal);
+        TreeNode* root = new TreeNode(preorder[i++]);
+        root->left = build(preorder, i, root->val);
+        root->right = build(preorder, i, bound);
 
-        root->left = solve(preorder, inorder, start, i - 1, idx);
-        root->right = solve(preorder, inorder, i + 1, end, idx);
-
-        return root;     
+        return root;
     }
     TreeNode* bstFromPreorder(vector<int>& preorder) {
-        vector<int>inorder;
-        int n = preorder.size();
-        int idx = 0;
-        inorder = preorder;
-        sort(begin(inorder),end(inorder));
-        return solve(preorder, inorder, 0, n - 1, idx);
-
+        int i = 0;
+        return build(preorder, i, INT_MAX);
     }
 };
