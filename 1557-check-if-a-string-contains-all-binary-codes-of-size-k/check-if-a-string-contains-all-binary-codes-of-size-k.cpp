@@ -1,14 +1,20 @@
 class Solution {
 public:
     bool hasAllCodes(string s, int k) {
-        if(s.length() < k)
-            return false;
         unordered_set<string>st;
         int totalNo = pow(2, k);
         int n = s.length();
-        for(int i = 0; i <= n - k; i++){
-            st.insert(s.substr(i, k));
+        for(int i = k; i <= n; i++){
+
+            string sub = s.substr(i - k, k);
+            if(!st.count(sub)){
+                st.insert(sub);
+                totalNo--;
+            }
+                
+            if(totalNo == 0)
+                return true;
         }
-        return st.size() == totalNo;
+        return false;
     }
 };
