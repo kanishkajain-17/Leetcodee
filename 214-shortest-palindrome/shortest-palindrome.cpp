@@ -31,7 +31,7 @@ public:
         computeLPS(temp, lps);
 
         int longestLPSlength =  lps[temp.length() - 1];
-        string toAdd = rev.substr(0, s.length() - longestLPSlength);
+        string toAdd = rev.substr(0, rev.length() - longestLPSlength);
 
         return toAdd +  s;
     }
