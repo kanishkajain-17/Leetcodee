@@ -1,26 +1,27 @@
 class Solution {
 public:
-    bool check(int i, int j, string & s,  vector<vector<int>>& dp){
-        if(j < i)
-            return true;
-        if(dp[i][j] != -1)
-            return dp[i][j];
-
-        if(s[i] == s[j])
-            return dp[i][j] = check(i + 1, j - 1, s, dp);
-
-        return dp[i][j] = false;
+    int count = 0;
+    void check(string& s, int i, int j, int n) {
+        
+        while(i >= 0 && j < n && s[i] == s[j]) {
+            count++;
+            i--; //expanding from center
+            j++; //expanding from center
+        }
     }
     int countSubstrings(string s) {
-
         int n = s.length();
-        vector<vector<int>>dp(n, vector<int>(n, -1));
-        int count = 0;
-        for(int i = 0; i < n; i++){
-            for(int j = i; j < n; j++){
-                if(check(i, j, s, dp))
-                    count++;
-            }
+        count = 0;
+        
+        /*
+            
+    Every single character in the string is a center for possible odd-length palindromes: check(s, i, i);
+    Every pair of consecutive characters in the string is a center for possible even-length palindromes: check(s, i, i+1);.
+
+        */
+        for(int i = 0; i<n; i++) {
+            check(s, i, i, n);
+            check(s, i, i+1, n);
         }
         return count;
     }
