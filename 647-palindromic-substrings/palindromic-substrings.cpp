@@ -14,7 +14,7 @@ public:
     int countSubstrings(string s) {
 
         int n = s.length();
-        vector<vector<int>>dp(n + 1, vector<int>(n + 1, -1));
+        vector<vector<int>>dp(n, vector<int>(n, -1));
         int count = 0;
         for(int i = 0; i < n; i++){
             for(int j = i; j < n; j++){
