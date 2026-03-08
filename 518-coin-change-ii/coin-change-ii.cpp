@@ -1,13 +1,8 @@
 class Solution {
 public:
-    int solve(int amount, vector<int>& coins, int i,  vector<vector<int>>& dp, int & count){
+    int solve(int amount, vector<int>& coins, int i,  vector<vector<int>>& dp){
         if(i == coins.size()){
-           if(amount == 0){
-                 count++;
-                 return count;
-           }
-           else
-            return 0;
+           return (amount == 0);
         }
 
         if(dp[i][amount] != -1)
@@ -15,8 +10,8 @@ public:
 
         int take = 0;
         if(amount >= coins[i])
-            take = solve(amount - coins[i], coins, i, dp, count);
-        int not_take = solve(amount, coins, i + 1, dp, count);
+            take = solve(amount - coins[i], coins, i, dp);
+        int not_take = solve(amount, coins, i + 1, dp);
 
         return dp[i][amount] = take + not_take;
 
@@ -24,7 +19,6 @@ public:
     int change(int amount, vector<int>& coins) {
         int n = coins.size();
         vector<vector<int>>dp(n + 1, vector<int>(amount + 1, -1));
-        int count = 0;
-         return solve(amount, coins, 0, dp, count);
+        return solve(amount, coins, 0, dp);
     }
 };
