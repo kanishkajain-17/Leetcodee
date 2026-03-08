@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int matchPlayersAndTrainers(vector<int>& g, vector<int>& s) {
+        sort(begin(g), end(g));
+        sort(begin(s), end(s));
+        int i = 0, j = 0;
+        int m = g.size(), n = s.size();
+
+        while(i < m && j < n){
+            if(g[i] <= s[j])
+                i++;
+            j++;
+            
+        }
+        return i;
+    }
+};
