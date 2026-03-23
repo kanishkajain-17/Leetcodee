@@ -1,27 +1,34 @@
 class Solution {
 public:
     int numberOfSubmatrices(vector<vector<char>>& grid) {
-        int n = grid.size(), m = grid[0].size();
-        int ans = 0;
-        vector<vector<array<int, 2>>> sum(n + 1, vector<array<int, 2>>(m + 1));
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                if (grid[i][j] == 'X') {
-                    sum[i + 1][j + 1][0] =
-                        sum[i + 1][j][0] + sum[i][j + 1][0] - sum[i][j][0] + 1;
-                    sum[i + 1][j + 1][1] = 1;
-                } else if (grid[i][j] == 'Y') {
-                    sum[i + 1][j + 1][0] =
-                        sum[i + 1][j][0] + sum[i][j + 1][0] - sum[i][j][0] - 1;
-                    sum[i + 1][j + 1][1] = sum[i + 1][j][1] | sum[i][j + 1][1];
-                } else {
-                    sum[i + 1][j + 1][0] =
-                        sum[i + 1][j][0] + sum[i][j + 1][0] - sum[i][j][0];
-                    sum[i + 1][j + 1][1] = sum[i + 1][j][1] | sum[i][j + 1][1];
+        int m = grid.size();
+        int n = grid[0].size();
+        int count = 0;
+        vector<vector<int>>countX(m, vector<int>(n, 0));
+        vector<vector<int>>countY(m, vector<int>(n, 0));
+
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+
+                countX[i][j] = (grid[i][j] == 'X');
+                countY[i][j] = (grid[i][j] == 'Y');
+
+                if(i- 1 >= 0){
+                    countX[i][j] += countX[i - 1][j];
+                    countY[i][j] += countY[i - 1][j];
                 }
-                ans += (!sum[i + 1][j + 1][0] && sum[i + 1][j + 1][1]) ? 1 : 0;
+                if(j - 1 >= 0){
+                    countX[i][j] += countX[i][j - 1];
+                    countY[i][j] += countY[i][j - 1];
+                }
+                if(j - 1 >= 0 && i - 1 >= 0){
+                    countX[i][j] -= countX[i - 1][j - 1];
+                    countY[i][j] -= countY[i - 1][j - 1];
+                }
+                if(countX[i][j] == countY[i][j] && countX[i][j] > 0)
+                    count++;
             }
         }
-        return ans;
+        return count;
     }
 };
