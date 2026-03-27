@@ -3,38 +3,39 @@ public:
     MyQueue() {
         
     }
-    stack<int>s1;
-    stack<int>s2;
+    stack<int>input;
+    stack<int>output;
+    int peakEle = -1;
+
     void push(int x) {
-        if(s1.empty())
-            s1.push(x);
-        else{
-            while(!s1.empty()){
-                int y = s1.top();
-                s1.pop();
-                s2.push(y);
-            }
-            s1.push(x);
-            while(!s2.empty()){
-                int y = s2.top();
-                s2.pop();
-                s1.push(y);
-            }
+        if(input.empty()){
+            peakEle = x;
         }
+        input.push(x);
     }
     
     int pop() {
-        int y = s1.top();
-        s1.pop();
-        return y;
+        if(output.empty()){
+            while(!input.empty()){
+                output.push(input.top());
+                input.pop();
+            }
+        }
+        int x = output.top();
+        output.pop();
+        return x;
     }
     
     int peek() {
-        return s1.top();
+        if(output.empty())
+            return peakEle;
+        return output.top();
     }
     
     bool empty() {
-        return s1.empty();
+        if(input.empty() && output.empty())
+            return true;
+        return false;
     }
 };
 
