@@ -1,47 +1,53 @@
+//Approach (Using DFS)
+//T.C : O(m*n)
+//S.C : O(m*n)
 class Solution {
 public:
-    static constexpr int MAX_N = 300 * 300 + 5;
-    static constexpr int patterns[7] = {0,      0b1010, 0b0101, 0b1100,
-                                        0b0110, 0b1001, 0b0011};
-    static constexpr int dirs[4][2] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+    int m, n;
 
-    struct DisjointSet {
-        int f[MAX_N];
+    unordered_map<int, vector<vector<int>>> directions = {
+        {1, {{0, -1}, {0, 1}}},
+        {2, {{-1, 0}, {1, 0}}},
+        {3, {{0, -1}, {1, 0}}},
+        {4, {{0, 1}, {1, 0}}},
+        {5, {{0, -1}, {-1, 0}}},
+        {6, {{-1, 0}, {0, 1}}}
+    };
 
-        DisjointSet() {
-            for (int i = 0; i < MAX_N; ++i) f[i] = i;
+    bool dfs(vector<vector<int>>& grid, int i, int j, vector<vector<bool>>& visited) {
+        if(i == m-1 && j == n-1)
+            return true;
+        
+        visited[i][j] = true;
+
+        for(auto &dir : directions[grid[i][j]]) {
+            int new_i = i + dir[0];
+            int new_j = j + dir[1];
+
+            if(new_i < 0 || new_i >= m || new_j < 0 || new_j >= n || visited[new_i][new_j])
+                continue;
+            
+            //IMPORTANT = can you come back to i and j from new_i and new_j
+            for(auto &backDir : directions[grid[new_i][new_j]]) {
+                if(new_i + backDir[0] == i &&
+                   new_j + backDir[1] == j) {
+                        if(dfs(grid, new_i, new_j, visited)) {
+                            return true;
+                        }
+                   }
+            }
         }
 
-        int find(int x) { return x == f[x] ? x : f[x] = find(f[x]); }
-
-        void merge(int x, int y) { f[find(x)] = find(y); }
-    } ds;
+        return false;
+    }
 
     bool hasValidPath(vector<vector<int>>& grid) {
-        int m = grid.size(), n = grid[0].size();
+        m = grid.size();
+        n = grid[0].size();
 
-        auto getId = [&](int x, int y) { return x * n + y; };
+        vector<vector<bool>> visited(m, vector<bool>(n, false));
+        //T.C : O(m*n)
 
-        auto handler = [&](int x, int y) {
-            int pattern = patterns[grid[x][y]];
-            for (int i = 0; i < 4; ++i) {
-                if (pattern & (1 << i)) {
-                    int sx = x + dirs[i][0];
-                    int sy = y + dirs[i][1];
-                    if (sx >= 0 && sx < m && sy >= 0 && sy < n and
-                        (patterns[grid[sx][sy]] & (1 << ((i + 2) % 4)))) {
-                        ds.merge(getId(x, y), getId(sx, sy));
-                    }
-                }
-            }
-        };
-
-        for (int i = 0; i < m; ++i) {
-            for (int j = 0; j < n; ++j) {
-                handler(i, j);
-            }
-        }
-
-        return ds.find(getId(0, 0)) == ds.find(getId(m - 1, n - 1));
+        return dfs(grid, 0, 0, visited);
     }
 };
