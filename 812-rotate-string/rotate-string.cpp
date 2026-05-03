@@ -6,8 +6,7 @@ public:
         string ans;
         int n = goal.size();
         int i = 0;
-        ans = s + s;
-        
+        ans = s + s;  
         
         while(i < n){
             if(goal == ans.substr(i, n))
