@@ -1,16 +1,32 @@
 class Solution {
 public:
+    typedef pair<int, int> p;
     vector<int> arrayRankTransform(vector<int>& arr) {
-        set<int> st(begin(arr), end(arr));
-        unordered_map<int, int> mp;
-        int rank = 1;
 
-        for (auto s : st) {
-            mp[s] = rank++;
+        priority_queue<p, vector<p>, greater<p>> pq;
+        int n = arr.size();
+
+        for (int i = 0; i < n; i += 1) {
+            pq.push({arr[i], i});
         }
 
-        for(auto &i : arr) {
-            i = mp[i]; //i is a reference to actual array element toh value automatiaclly change ho jayegi 
+        int prev = INT_MIN;
+        int rank = 1;
+
+        while (!pq.empty()) {
+
+            int value = pq.top().first;
+            int index = pq.top().second;
+            pq.pop();
+
+            if(value != prev) {
+                arr[index] = rank;
+                rank += 1;
+            }
+            else
+                arr[index] = rank - 1;
+            
+            prev = value; //for next's value calculation
         }
         return arr;
     }
