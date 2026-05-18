@@ -12,11 +12,13 @@ public:
             mp[nums[r]] += 1;
 
             if(mp.size() > 2) {
+
                 mp[nums[l]] -= 1;
+
                 if(mp[nums[l]] == 0)
                     mp.erase(nums[l]);
+                    
                 l += 1;
-                cout<<l<<" ";
             }
 
             maxNum = max(maxNum, r - l + 1);
