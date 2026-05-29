@@ -10,19 +10,37 @@
  */
 class Solution {
 public:
+    ListNode* mergeTwoSortedLists(ListNode* l1, ListNode* l2) {
+        if(!l1)
+            return l2;
+        if(!l2)
+            return l1;
+        if(l1->val <= l2->val) {
+            l1->next = mergeTwoSortedLists(l1->next, l2); //bcz l1 ka ek use hogaya aab l1 mai next value se compare hoga l2 
+            return l1;
+        }
+        else {
+            l2->next = mergeTwoSortedLists(l1, l2->next);
+            return l2;
+        }
+        return NULL;
+    }
     ListNode* sortList(ListNode* head) {
-        vector<int> sorted_values;
-        ListNode* temp = head;
-        while (temp != NULL) {
-            sorted_values.push_back(temp->val);
-            temp = temp->next;
+        if(head == NULL || head->next == NULL)
+            return head;
+        ListNode* slow = head;
+        ListNode* fast = head;
+        ListNode* prev = NULL;
+
+        while (fast != NULL && fast->next != NULL) {
+            prev = slow;
+            slow = slow->next;
+            fast = fast->next->next;
         }
-        sort(begin(sorted_values), end(sorted_values));
-        temp = head;
-        for (int i = 0; i < sorted_values.size(); i += 1) {
-            temp->val = sorted_values[i];
-            temp = temp->next;
-        }
-        return head;
+        prev->next = NULL;
+        ListNode* l1 = sortList(head);
+        ListNode* l2 = sortList(slow);
+
+        return mergeTwoSortedLists(l1, l2);
     }
 };
