@@ -1,1 +1,1 @@
-<h2>two-sum-iv-input-is-a-bst Notes</h2><hr>[ Time taken: 5m 22s ]
+<h2>two-sum-iv-input-is-a-bst Notes</h2><hr>[ Time taken: 40m 38s ]
