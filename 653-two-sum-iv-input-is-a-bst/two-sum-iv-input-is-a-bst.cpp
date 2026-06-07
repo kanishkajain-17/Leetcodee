@@ -11,27 +11,49 @@
  */
 class Solution {
 public:
-    vector<int> ans;
-    void inorder(TreeNode* root) {
-        if(!root)
-            return;
-        inorder(root->left);
-        ans.push_back(root->val);
-        inorder(root->right);
+    stack<TreeNode*> asc;
+    stack<TreeNode*> desc;
+    void pushLeft(TreeNode* root) {
+        while (root) {
+            asc.push(root);
+            root = root->left;
+        }
+    }
+    int nextSmallest() {
+        TreeNode* temp = asc.top();
+        asc.pop();
+        pushLeft(temp->right);
+        return temp->val;
+    }
+    void pushRight(TreeNode* root) {
+        while (root) {
+            desc.push(root);
+            root = root->right;
+        }
+    }
+    int nextLargest() {
+        TreeNode* temp = desc.top();
+        desc.pop();
+        pushRight(temp->left);
+        return temp->val;
     }
     bool findTarget(TreeNode* root, int k) {
-        inorder(root);
-        int n = ans.size();
-        int l = 0;
-        int r = n - 1;
-        while (l < r) {
-            int sum = ans[l] + ans[r];
-            if(sum == k)
+        if(!root)
+            return false;
+
+        pushLeft(root);
+        pushRight(root);
+
+        int left = nextSmallest();
+        int right =  nextLargest();
+        while (left < right) {
+            int sum = left + right;
+            if(sum == k)    
                 return true;
             else if(sum > k)
-                r -= 1;
+                right = nextLargest();
             else
-                l += 1;
+                left = nextSmallest();
         }
         return false;
     }
