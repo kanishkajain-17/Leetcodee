@@ -12,8 +12,6 @@ public:
             else
                 l = mid + 1;
         }
-        if(l < n && nums[l] > target)
-            return l;
-        return r + 1;
+        return l;
     }
 };
