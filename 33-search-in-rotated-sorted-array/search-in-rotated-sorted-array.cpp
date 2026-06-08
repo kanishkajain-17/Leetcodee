@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int find_pivot(vector<int>& nums, int n) {
+    int findPivot(vector<int>& nums, int n) {
         int l = 0;
         int r = n - 1;
         while (l < r) {
@@ -12,30 +12,26 @@ public:
         }
         return r;
     }
-    int binary_search(int l, int r, vector<int>& arr, int target) {
-        int ans = -1;
-
-        while (l <= r) {
+    int binary(vector<int>& nums, int l, int r, int x) {
+        while(l <= r) {
             int mid = l + (r - l) /2;
-            if(arr[mid] == target)
+            if(nums[mid] == x)
                 return mid;
-            if(arr[mid] > target) 
+            else if(nums[mid] > x)
                 r = mid - 1;
             else
-                l = mid + 1;        
+                l = mid + 1;
         }
-        return ans;
+        return -1;
     }
-    int search(vector<int>& nums, int target) {
+    int search(vector<int>& nums, int x) {
         int n = nums.size();
-
-        int pivot = find_pivot(nums, n);
-
-        int idx = binary_search(0, pivot - 1, nums, target);
+        int idx = -1;
+        int pivot = findPivot(nums, n);
+        idx = binary(nums, 0, pivot - 1, x);
         if(idx != -1)
             return idx;
-        idx = binary_search(pivot, n - 1, nums, target);
+        idx = binary(nums, pivot, n - 1, x);
         return idx;
-
     }
 };
