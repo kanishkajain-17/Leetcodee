@@ -16,7 +16,7 @@ public:
                 sum += weights[ch - 'a'];
             }
             mod_val = sum % 26;
-            ans.push_back(mp[mod_val]);
+            ans.push_back('z' - sum % 26);
         } 
         return ans;
     }
