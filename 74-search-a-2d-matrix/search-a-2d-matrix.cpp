@@ -1,20 +1,22 @@
 class Solution {
 public:
+    // i starts at 0 and can go up to m-1 → at most m moves.
+    // j starts at n-1 and can go down to 0 → at most n moves.
+    // tc = O(m + n)
+    // sc = O(1)
+    
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
         int m = matrix.size();
         int n = matrix[0].size();
-        int l = 0;
-        int r = m * n - 1;
-        while (l <= r) {
+        int i = 0, j = n - 1;
 
-            int mid = l + (r - l) / 2;
-            int val = matrix[mid / n][mid % n];
-            if(val == target) 
+        while (i < m && j >= 0) {
+            if(matrix[i][j] == target)
                 return true;
-            else if(val > target)
-                r = mid - 1;
+            else if(matrix[i][j] > target)
+                j -= 1;
             else
-                l = mid + 1;
+                i += 1;
         }
         return false;
     }
