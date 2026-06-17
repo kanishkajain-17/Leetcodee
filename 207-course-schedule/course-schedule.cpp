@@ -1,0 +1,38 @@
+class Solution {
+public:
+    bool dfs(unordered_map<int, vector<int>> &adj, vector<bool> &visited, vector<bool> &inRecursion, int u) {
+
+        visited[u] = true;
+        inRecursion[u] = true;
+
+        for (int &v : adj[u]) {
+            if(visited[v] == true){
+                if(inRecursion[v] == true)
+                    return true;
+            }
+            else
+                if(dfs(adj, visited, inRecursion, v))
+                    return true;
+        }
+        inRecursion[u] = false;
+        return false;
+
+    }
+
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        unordered_map<int, vector<int>> adj;
+        for (auto &p : prerequisites) {
+            int a = p[0];
+            int b = p[1];
+            adj[b].push_back(a);
+        }
+
+        vector<bool> visited(numCourses, false);
+        vector<bool> inRecursion(numCourses, false);
+
+        for (int i = 0; i < numCourses; i ++)
+            if(!visited[i] && dfs(adj, visited, inRecursion, i))
+                return false;
+        return true;
+    }
+};
