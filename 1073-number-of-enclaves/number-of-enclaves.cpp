@@ -1,49 +1,52 @@
 class Solution {
 public:
     int m, n;
-    void DFS(vector<vector<int>>& grid, int i, int j){
-        if(i < 0 || i >= m || j < 0 || j >= n || grid[i][j] == 0)
-            return;
-        grid[i][j] = 0; // paani bana rahe hai phir uss path ko
-        DFS(grid, i + 1, j);
-        DFS(grid, i, j - 1);
-        DFS(grid, i - 1, j);
-        DFS(grid, i, j + 1);
+    vector<vector<int>> directions{{1, 0}, {0, -1}, {-1, 0}, {0, 1}};
 
+    void dfs(vector<vector<int>>& board, int i, int j) {
+
+        board[i][j] = -1;
+
+        for (auto &dir : directions) {
+            int new_i = i + dir[0];
+            int new_j = j + dir[1];
+
+            if((new_i >= 0 && new_i < m) && (new_j >= 0 && new_j < n) && board[new_i][new_j] == 1)
+                dfs(board, new_i, new_j);
+        }
     }
-    int numEnclaves(vector<vector<int>>& grid) {
-        m = grid.size();
-        n = grid[0].size();
 
-        //boundary par agar 1 hai mtlb vaha se path haii aage ke liye 
-        //toh uss cell par DFS lagao or uske charo taraf explore karlo ke vaha se kaha 
-        //kaha path par aur ja sakte hai 
-        for(int row = 0; row < m; row++){
-            //first column
-            if(grid[row][0] == 1)
-                DFS(grid, row, 0);
+    int numEnclaves(vector<vector<int>>& board) {
 
-            //last column
-            if(grid[row][n - 1] == 1)
-                DFS(grid, row, n - 1);
-        }
-
-        for(int col = 0; col < n; col++){
-            //first row
-            if(grid[0][col] == 1)
-                DFS(grid, 0, col);
-
-            //last row
-            if(grid[m - 1][col] == 1)
-                DFS(grid, m - 1, col);
-        }
-
-        //traversing to count enclosed 1;
+        m = board.size();
+        n = board[0].size();
         int count = 0;
-        for(int i = 0; i < m; i++){
-            for(int j = 0; j < n; j++){
-                if(grid[i][j] == 1)
-                    count++;
+
+        for (int i = 0; i < n; i ++) {
+
+            if(board[0][i] == 1)
+                dfs(board, 0, i);
+            if(board[m - 1][i] == 1)
+                dfs(board, m - 1, i);
+        }
+
+        for (int j = 0; j < m; j ++) {
+
+            if(board[j][0] == 1)
+                dfs(board, j, 0);
+            if(board[j][n - 1] == 1)
+                dfs(board, j, n - 1);
+        }
+
+        for (int i = 0; i < m; i ++) {
+            for (int j = 0; j < n; j ++) {
+
+                if(board[i][j] == -1)
+                    board[i][j] = 1;
+
+                else if(board[i][j] == 1)
+                    count += 1;
+                    
             }
         }
         return count;
