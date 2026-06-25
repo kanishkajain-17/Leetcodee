@@ -13,7 +13,10 @@ public:
 
                 if(nums[j] == target)
                     count += 1;
-                if(count > size / 2)
+                else 
+                    count -= 1;
+
+                if(count > 0)
                     finalCount += 1;
 
             }
