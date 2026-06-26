@@ -1,27 +1,27 @@
 class Solution {
 public:
-    //asked by many companies
     void nextPermutation(vector<int>& nums) {
-        int n  = nums.size();
-        int gola_index = -1;
-        for(int i = n - 1; i > 0; i--){
+        int n = nums.size();
+        int gola_idx = -1;
+        for (int i = n - 1; i > 0; i -= 1) {
             if(nums[i - 1] < nums[i]){
-                gola_index = i - 1;
+                gola_idx = i - 1;
                 break;
             }
         }
-        if(gola_index != -1){
-            int swap_index = 0;
-            for(int j = n - 1; j >= gola_index + 1; j--){
-                if(nums[j] > nums[gola_index]){
-                    swap_index = j;
+        int swap_idx = gola_idx;
+        if(gola_idx != -1) {
+            
+            for (int i = n - 1; i >= gola_idx + 1; i-= 1) {
+                if(nums[i] > nums[gola_idx]) {
+                    swap_idx = i;
                     break;
                 }
-            }
-            swap(nums[swap_index], nums[gola_index]);
+            } 
+            swap(nums[gola_idx], nums[swap_idx]);
         }
-       
+        
+        reverse(begin(nums) + gola_idx + 1, end(nums));
 
-        reverse(begin(nums) + gola_index + 1, end(nums));
     }
 };
