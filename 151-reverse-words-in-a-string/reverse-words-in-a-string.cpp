@@ -2,21 +2,29 @@ class Solution {
 public:
     string reverseWords(string s) {
         int n = s.length();
-        string temp = "";
-        string ans = "";
-        reverse(s.begin(), s.end());
-        for(int i = 0; i < n; i++){
-            temp = "";
-            while(i < n && s[i] != ' '){
-                temp += s[i];
-                i++;
+        reverse(begin(s), end(s));
+       
+        string res = "";
+
+        for (int i = 0; i < n; i ++) {
+             string ans = "";
+            while (s[i] == ' ')
+                i += 1;
+            while ((s[i] >= 'a' && s[i] <= 'z') ||( s[i] >= 'A' && s[i] <= 'Z' || (s[i] >= '0' && s[i] <= '9'))) {
+                ans.push_back(s[i]);
+                i += 1;
             }
-                
-            reverse(begin(temp), end(temp));
-            if(temp.length() > 0)
-                 ans += ' ' + temp;
-            
+            reverse(begin(ans), end(ans));
+
+            res.append(ans);
+            res.push_back(' ');
+
         }
-        return ans.substr(1, n);
+        int i = res.length() - 1;
+        while (res[i] == ' ') {
+            res.pop_back();
+            i -= 1;
+        }
+        return res;
     }
 };
