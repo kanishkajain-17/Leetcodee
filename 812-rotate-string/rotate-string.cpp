@@ -2,13 +2,18 @@ class Solution {
 public:
     bool rotateString(string s, string goal) {
         
-        goal += goal;
+        if(s.length() != goal.length())
+            return false;
+            
+        string ans = s + s;
         int n = goal.length();
+        int i = 0;
 
-        for (int i = 0; i < n; i ++ ) {
+        while (i < n) {
 
-            if(goal.find(s) != string :: npos)
+            if(ans.substr(i, n) == goal)
                 return true;
+            i += 1;
         }
         return false;
     }
