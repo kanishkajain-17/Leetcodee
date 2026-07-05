@@ -1,18 +1,22 @@
 class Solution {
 public:
     int maxDepth(string s) {
+        
         int n = s.length();
         int open = 0;
         int ans = 0;
-        for(int i = 0; i < n; i++){
-            if(s[i] == '('){
-                open++;
-                ans = max(ans, open);
+
+        for (int i = 0; i < n; i ++) {
+
+            if(s[i] == '(') {
+                open += 1;
+                ans = max(open, ans);
             }
             else if(s[i] == ')')
-                open--;
+                open -= 1;
             else
                 continue;
+
         }
         return ans;
     }
