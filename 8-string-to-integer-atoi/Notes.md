@@ -1,1 +1,1 @@
-<h2>string-to-integer-atoi Notes</h2><hr>[ Time taken: 33m 30s ]
+<h2>string-to-integer-atoi Notes</h2><hr>[ Time taken: 19m 0s ]
