@@ -24,7 +24,7 @@ public:
             odd->next = even->next;
             odd = odd->next;
          
-            even->next = odd->next;
+            even->next = even->next->next;
             even = even->next;
         }
 
