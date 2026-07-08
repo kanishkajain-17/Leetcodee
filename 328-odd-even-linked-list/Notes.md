@@ -1,1 +1,1 @@
-<h2>odd-even-linked-list Notes</h2><hr>[ Time taken: 41m 24s ]
+<h2>odd-even-linked-list Notes</h2><hr>[ Time taken: 24m 22s ]
