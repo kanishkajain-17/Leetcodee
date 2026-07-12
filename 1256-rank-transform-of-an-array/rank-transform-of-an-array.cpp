@@ -1,5 +1,7 @@
 class Solution {
 public:
+    //Time Complexity: O(n log n)
+    //Space Complexity: O(n)
     typedef pair<int, int> p;
     vector<int> arrayRankTransform(vector<int>& arr) {
 
@@ -24,7 +26,7 @@ public:
                 rank += 1;
             }
             else
-                arr[index] = rank - 1;
+                arr[index] = rank - 1; //bcc last wale mai rank 1 se inacrese hui hogi 
             
             prev = value; //for next's value calculation
         }
