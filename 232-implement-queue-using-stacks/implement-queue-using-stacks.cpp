@@ -3,20 +3,22 @@ public:
     MyQueue() {
         
     }
-    stack<int>input;
-    stack<int>output;
+    stack<int> input;
+    stack<int> output;
     int peakEle = -1;
 
     void push(int x) {
-        if(input.empty()){
+        
+        if(input.empty())
             peakEle = x;
-        }
         input.push(x);
     }
     
     int pop() {
-        if(output.empty()){
-            while(!input.empty()){
+        
+        if(output.empty()) {
+            while (!input.empty()) {
+
                 output.push(input.top());
                 input.pop();
             }
@@ -27,15 +29,14 @@ public:
     }
     
     int peek() {
+        
         if(output.empty())
             return peakEle;
         return output.top();
     }
     
     bool empty() {
-        if(input.empty() && output.empty())
-            return true;
-        return false;
+        return input.empty() && output.empty();
     }
 };
 
