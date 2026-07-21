@@ -1,34 +1,30 @@
 class Solution {
 public:
-    //Time Complexity: O(n log n)
-    //Space Complexity: O(n)
-    typedef pair<int, int> p;
     vector<int> arrayRankTransform(vector<int>& arr) {
-
-        priority_queue<p, vector<p>, greater<p>> pq;
+        
         int n = arr.size();
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
 
-        for (int i = 0; i < n; i += 1) {
+        for (int i = 0; i < n; i ++) 
             pq.push({arr[i], i});
-        }
 
         int prev = INT_MIN;
         int rank = 1;
 
         while (!pq.empty()) {
 
-            int value = pq.top().first;
-            int index = pq.top().second;
+            int val = pq.top().first;
+            int idx = pq.top().second;
             pq.pop();
 
-            if(value != prev) {
-                arr[index] = rank;
+            if(prev != val) {
+
+                arr[idx] = rank;
                 rank += 1;
             }
             else
-                arr[index] = rank - 1; //bcc last wale mai rank 1 se inacrese hui hogi 
-            
-            prev = value; //for next's value calculation
+                arr[idx] = rank - 1;
+            prev = val;
         }
         return arr;
     }
