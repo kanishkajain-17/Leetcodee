@@ -4,13 +4,13 @@ public:
         sort(begin(s), end(s));
         sort(begin(g), end(g));
 
-        int n = g.size();
-        int m = s.size();
+        int m = g.size();
+        int n = s.size();
 
         int i = 0, j = 0;
         int count = 0;
 
-        while (i < n && j < m) {
+        while (i < m && j < n) {
 
             if(s[j] >= g[i]) {
                 count += 1;
