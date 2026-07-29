@@ -1,29 +1,32 @@
 class Solution {
 public:
     vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
-        int i = 0;
-        int n = intervals.size();
+        
         vector<vector<int>> ans;
-
+        int n = intervals.size();
+        int i = 0;
         while (i < n) {
 
             if(newInterval[0] > intervals[i][1])
                 ans.push_back(intervals[i]);
-
-            else if(newInterval[1] < intervals[i][0]) 
-            //aab saare newinterval se badhe honge 
+            
+            else if(newInterval[1] < intervals[i][0])
                 break;
-            else{ //merge
+            else {
+
                 newInterval[0] = min(newInterval[0], intervals[i][0]);
                 newInterval[1] = max(newInterval[1], intervals[i][1]);
             }
             i += 1;
         }
         ans.push_back(newInterval);
+
         while (i < n) {
+
             ans.push_back(intervals[i]);
             i += 1;
         }
+        
         return ans;
     }
 };
