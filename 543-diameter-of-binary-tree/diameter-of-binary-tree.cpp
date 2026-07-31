@@ -11,20 +11,25 @@
  */
 class Solution {
 public:
-    int solve(TreeNode* root, int & result){
+    int solve(TreeNode* root, int & ans) {
+
         if(!root)
             return 0;
-        int leftH = solve(root->left, result);
-        int rightH = solve(root->right, result);
+        
+        int left = solve(root->left, ans);
+        int right = solve(root->right, ans);
 
-        result = max(result, leftH + rightH);
-        return max(leftH, rightH) + 1;
+        ans = max(ans, left + right);
+
+        return max(left, right) + 1;
     }
     int diameterOfBinaryTree(TreeNode* root) {
         if(!root)
             return 0;
-        int result = 0;
-        solve(root, result);
-        return result;
+        
+        int ans = 0;
+        solve(root, ans);
+
+        return ans;
     }
 };
