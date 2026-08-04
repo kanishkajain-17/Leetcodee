@@ -1,1 +1,1 @@
-<h2>binary-tree-right-side-view Notes</h2><hr>[ Time taken: 12 m 57 s ]
+<h2>binary-tree-right-side-view Notes</h2><hr>[ Time taken: 10m 3s ]
