@@ -9,13 +9,15 @@ public:
         }
 
         if (open < n) {
-            solve(n, open + 1, close, temp + '(');
-           // temp.pop_back();
+            temp.push_back('(');
+            solve(n, open + 1, close, temp);
+            temp.pop_back();
         }
         
         if(open > close) {
-            solve(n, open, close + 1, temp + ')');
-           // temp.pop_back();
+            temp.push_back(')');
+            solve(n, open, close + 1, temp);
+            temp.pop_back();
         }
     }
     vector<string> generateParenthesis(int n) {
