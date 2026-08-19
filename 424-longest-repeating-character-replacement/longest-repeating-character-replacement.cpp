@@ -13,6 +13,7 @@ public:
             maxFreq = max(maxFreq, count[s[r] - 'A']);
 
             int windowSize = r - l + 1;
+            
             if (windowSize - maxFreq > k) {
                 count[s[l] - 'A'] -= 1;
                 l += 1;
