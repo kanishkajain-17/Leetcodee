@@ -1,1 +1,1 @@
-<h2>validate-binary-search-tree Notes</h2><hr>[ Time taken: 12m 21s ]
+<h2>validate-binary-search-tree Notes</h2><hr>[ Time taken: 7m 9s ]
