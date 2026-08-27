@@ -10,13 +10,13 @@
  * };
  */
 class Solution {
-public:
+public: 
     TreeNode* nextRight = NULL;
     void flatten(TreeNode* root) {
         if(!root)
             return;
-        //using reverse logic of preorder traversal
         
+        //right left root
         flatten(root->right);
         flatten(root->left);
 
