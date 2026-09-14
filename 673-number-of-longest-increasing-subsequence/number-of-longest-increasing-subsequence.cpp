@@ -13,7 +13,7 @@ public:
                         count[i] = count[j];
                     }
                     else if(dp[i] == dp[j] + 1){
-                        dp[i] = dp[j] + 1;
+                        //dp[i] = dp[j] + 1;
                         count[i] += count[j];
                     }
             }
