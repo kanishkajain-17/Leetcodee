@@ -8,7 +8,7 @@ public:
     }
     bool isValid(string s) {
         int n = s.length();
-        stack<int> st;
+        stack<char> st;
 
         for (int i = 0; i < n; i ++) {
             
@@ -18,6 +18,7 @@ public:
                 
                 if(st.empty())
                     return false;
+                    
                 char temp = st.top();
                 st.pop();
 
