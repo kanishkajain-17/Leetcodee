@@ -1,8 +1,10 @@
 class Solution {
 public:
     bool checkPerfectNumber(int n) {
-        if(n <= 1)
-            return false;
+        
+        // if(n <= 1)
+        //     return false;
+
         int sum = 0;
         for (int i = 1; i * i <= n; i++) {
             if(n % i == 0) {
@@ -11,6 +13,6 @@ public:
                     sum += n / i;
             }
         }
-        return sum - n == n; //bcz sum calculated all divisors including n's value
+        return sum - n == n; //bcz sum calculated all divisors including n's value so that's why removing it from final ans to check
     }
 };
