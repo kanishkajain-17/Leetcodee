@@ -5,17 +5,18 @@ public:
         int zeros = 0;
         int j = 0;
 
-        for (int i = 0; i < n; i ++) {
-            if(nums[i] == 0)
-                zeros += 1;
-            else{
-                nums[j] = nums[i];
-                j += 1;
+        for (int i = 0; i < n; i++) {
+            if(nums[i] == 0) {
+                zeros ++;
+               // j = i;
             }
-        }
-        while (j < n && (zeros--)) {
-            nums[j] = 0;
-            j += 1;
+            else {
+                swap(nums[j], nums[i]);
+                j ++;
+            }
+                
+            
+            
         }
     }
 };
