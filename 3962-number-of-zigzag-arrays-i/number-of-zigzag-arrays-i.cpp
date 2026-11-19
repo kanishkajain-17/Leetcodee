@@ -1,57 +1,41 @@
-
-//Approach-3 (Bottom Up + Prefix Sum) - TLE
-//T.C : O(n*m)
-//S.C : O(n*m)
 class Solution {
 public:
-    int MOD = 1e9+7;
-    typedef long long ll;
+    static constexpr int MOD = 1'000'000'007;
 
     int zigZagArrays(int n, int l, int r) {
-        int N = n;
-        int M = r-l+1;
+        int m = r - l + 1;                 // number of distinct values
+        // up[v]   = ways ending at value (l+v) with last step UP
+        // down[v]  = ways ending at value (l+v) with last step DOWN
+        vector<long long> up(m, 1), down(m, 1);
 
-        ll t[2001][2001][2];
+        for (int i = 2; i <= n; ++i) {
+            vector<long long> nup(m), ndown(m);
 
-        //Base Case
-        for(int prevVal = 1; prevVal <= M; prevVal++) {
-            t[N][prevVal][0] = 1;
-            t[N][prevVal][1] = 1;
-        }
-
-        for(int i = N-1; i >= 0; i--) {
-
-            vector<ll> prefDir0(M+1, 0);
-            vector<ll> prefDir1(M+1, 0);
-
-            for(int prevVal = 1; prevVal <= M; prevVal++) {
-                
-                prefDir0[prevVal] = (prefDir0[prevVal-1] + t[i+1][prevVal][0]) % MOD;
-
-                prefDir1[prevVal] = (prefDir1[prevVal-1] + t[i+1][prevVal][1]) % MOD;
-
+            // Last step UP into v: previous value u < v, arrived via DOWN.
+            long long pref = 0;
+            for (int v = 0; v < m; ++v) {
+                nup[v] = pref;             // sum of down[u] for u < v
+                pref += down[v];
+                if (pref >= MOD) pref -= MOD;
             }
 
-            for(int prevVal = 1; prevVal <= M; prevVal++) {
-                
-                t[i][prevVal][1] = (prefDir0[M] - prefDir0[prevVal] + MOD) % MOD;
-
-                t[i][prevVal][0] = prefDir1[prevVal-1];
-
+            // Last step DOWN into v: previous value u > v, arrived via UP.
+            long long suff = 0;
+            for (int v = m - 1; v >= 0; --v) {
+                ndown[v] = suff;           // sum of up[u] for u > v
+                suff += up[v];
+                if (suff >= MOD) suff -= MOD;
             }
+
+            up.swap(nup);
+            down.swap(ndown);
         }
 
-        ll result = 0;
-
-        for(int startVal = 1; startVal <= M; startVal++) {
-            //a < b > c < d ...
-            result = (result + t[1][startVal][1]) % MOD;
-
-            //a > b < c > d...
-            result = (result + t[1][startVal][0]) % MOD;
+        long long ans = 0;
+        for (int v = 0; v < m; ++v) {
+            ans += up[v] + down[v];
+            ans %= MOD;
         }
-
-        return result;
-        
+        return (int)ans;
     }
 };
