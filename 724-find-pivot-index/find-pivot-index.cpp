@@ -18,7 +18,11 @@ public:
         }
 
         for (int i = 0; i < n; i++) {
-            if(prefixL[i] == prefixR[i])
+           
+           int leftSum = (i == 0) ? 0 : prefixL[i - 1];
+           int rightSum = (i == n - 1) ? 0 : prefixR[i + 1];
+
+           if(leftSum == rightSum)
                 return i;
         }
         return -1;
