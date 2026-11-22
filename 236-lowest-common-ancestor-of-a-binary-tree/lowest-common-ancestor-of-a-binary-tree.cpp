@@ -9,6 +9,9 @@
  */
 class Solution {
 public:
+    //TC = O(N)
+    //SC = O(H), H is the height of the tree
+    
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
         if(!root || root == p || root == q)
             return root;
