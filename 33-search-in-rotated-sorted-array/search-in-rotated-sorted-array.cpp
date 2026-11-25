@@ -1,5 +1,6 @@
 class Solution {
 public:
+    //asked in manyyyyy companies
     int findPivot(vector<int>& nums, int l, int r) {
 
         while (l < r) {
